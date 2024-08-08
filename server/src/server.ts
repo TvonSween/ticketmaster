@@ -2,6 +2,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import { connectToDatabase } from "./database";
+import { ticketRouter } from "./ticket.routes";
 
 // Load environment variables from the .env file, where the ATLAS_URI is configured
 dotenv.config();
@@ -19,6 +20,8 @@ connectToDatabase(ATLAS_URI)
     .then(() => {
         const app = express();
         app.use(cors());
+
+        app.use("/tickets", ticketRouter);
 
         // start the Express server
         app.listen(5200, () => {
